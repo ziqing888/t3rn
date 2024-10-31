@@ -120,4 +120,49 @@ function execute_script() {
         echo -e "${BLUE}切换目录并执行 ./executor...${RESET}"
         cd "$EXECUTOR_DIR/bin"
         ./executor > "$LOGFILE" 2>&1 &
-        echo -e "${GREEN}executor 进程已启动，PID: $!${RESET
+        echo -e "${GREEN}executor 进程已启动，PID: $!${RESET}"
+        echo -e "${GREEN}操作完成。${RESET}"
+    else
+        echo -e "${RED}未找到 bin 目录，检查解压后的文件结构。${RESET}"
+    fi
+
+    # 提示用户按任意键返回主菜单
+    read -n 1 -s -r -p "按任意键返回主菜单..."
+}
+
+# 重启节点函数
+function restart_node() {
+    echo -e "${BLUE}正在重启节点进程...${RESET}"
+    pkill -f executor
+    execute_script
+}
+
+# 查看日志函数
+function view_logs() {
+    if [ -f "$LOGFILE" ]; then
+        echo -e "${BLUE}实时显示日志文件内容（按 Ctrl+C 退出）：${RESET}"
+        tail -f "$LOGFILE"
+    else
+        echo -e "${YELLOW}日志文件不存在。${RESET}"
+    fi
+    read -n 1 -s -r -p "按任意键返回主菜单..."
+}
+
+# 删除节点函数
+function delete_node() {
+    echo -e "${BLUE}正在停止节点进程...${RESET}"
+    pkill -f executor
+
+    # 删除节点目录
+    if [ -d "$EXECUTOR_DIR" ]; then
+        echo -e "${BLUE}正在删除节点目录...${RESET}"
+        rm -rf "$EXECUTOR_DIR"
+        echo -e "${GREEN}节点目录已删除。${RESET}"
+    else
+        echo -e "${YELLOW}节点目录不存在，可能已被删除。${RESET}"
+    fi
+    read -n 1 -s -r -p "按任意键返回主菜单..."
+}
+
+# 启动主菜单
+main_menu
