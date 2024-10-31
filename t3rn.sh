@@ -87,20 +87,19 @@ function execute_script() {
             return
         fi
 
-        # 检查解压后的目录并移动到 $EXECUTOR_DIR
-        if [ -d "./executor" ]; then
+        # 确保目录结构正确
+        if [ -d "./executor/bin" ]; then
             mv "./executor" "$EXECUTOR_DIR"
-            echo -e "${GREEN}安装完成。${RESET}"
-        elif [ -d "./executor-linux-v0.21.11" ]; then
+        elif [ -d "./executor-linux-v0.21.11/bin" ]; then
             mv "./executor-linux-v0.21.11" "$EXECUTOR_DIR"
-            echo -e "${GREEN}安装完成。${RESET}"
         else
-            echo -e "${RED}未找到解压后的目录，可能文件名不正确。${RESET}"
+            echo -e "${RED}未找到解压后的目录，或结构不正确。${RESET}"
             return
         fi
 
         # 删除压缩文件
         rm -f executor-linux-v0.21.11.tar.gz
+        echo -e "${GREEN}安装完成。${RESET}"
     fi
 
     # 设置环境变量
@@ -113,7 +112,7 @@ function execute_script() {
     export RPC_ENDPOINTS_OPSP='https://optimism-sepolia.blockpi.network/v1/rpc/public,https://api.zan.top/opt-sepolia'
 
     # 输入私钥
-    read -p "请输入私钥: " PRIVATE_KEY_LOCAL
+    read -p "请输入 PRIVATE_KEY_LOCAL 的值: " PRIVATE_KEY_LOCAL
     export PRIVATE_KEY_LOCAL="$PRIVATE_KEY_LOCAL"
 
     # 切换目录并执行
@@ -121,49 +120,4 @@ function execute_script() {
         echo -e "${BLUE}切换目录并执行 ./executor...${RESET}"
         cd "$EXECUTOR_DIR/bin"
         ./executor > "$LOGFILE" 2>&1 &
-        echo -e "${GREEN}executor 进程已启动，PID: $!${RESET}"
-        echo -e "${GREEN}操作完成。${RESET}"
-    else
-        echo -e "${RED}未找到 bin 目录，检查解压后的文件结构。${RESET}"
-    fi
-
-    # 提示用户按任意键返回主菜单
-    read -n 1 -s -r -p "按任意键返回主菜单..."
-}
-
-# 重启节点函数
-function restart_node() {
-    echo -e "${BLUE}正在重启节点进程...${RESET}"
-    pkill -f executor
-    execute_script
-}
-
-# 查看日志函数
-function view_logs() {
-    if [ -f "$LOGFILE" ]; then
-        echo -e "${BLUE}实时显示日志文件内容（按 Ctrl+C 退出）：${RESET}"
-        tail -f "$LOGFILE"
-    else
-        echo -e "${YELLOW}日志文件不存在。${RESET}"
-    fi
-    read -n 1 -s -r -p "按任意键返回主菜单..."
-}
-
-# 删除节点函数
-function delete_node() {
-    echo -e "${BLUE}正在停止节点进程...${RESET}"
-    pkill -f executor
-
-    # 删除节点目录
-    if [ -d "$EXECUTOR_DIR" ]; then
-        echo -e "${BLUE}正在删除节点目录...${RESET}"
-        rm -rf "$EXECUTOR_DIR"
-        echo -e "${GREEN}节点目录已删除。${RESET}"
-    else
-        echo -e "${YELLOW}节点目录不存在，可能已被删除。${RESET}"
-    fi
-    read -n 1 -s -r -p "按任意键返回主菜单..."
-}
-
-# 启动主菜单
-main_menu
+        echo -e "${GREEN}executor 进程已启动，PID: $!${RESET
