@@ -19,7 +19,7 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-# 显示主菜单
+# 主菜单函数
 function main_menu() {
     while true; do
         clear
@@ -69,7 +69,7 @@ function execute_script() {
     else
         # 下载文件
         echo -e "${BLUE}正在下载 executor-linux-v0.21.11.tar.gz...${RESET}"
-        wget -q https://github.com/t3rn/executor-release/releases/download/v0.21.11/executor-linux-v0.21.11.tar.gz -O /tmp/executor-linux-v0.21.11.tar.gz
+        wget https://github.com/t3rn/executor-release/releases/download/v0.21.11/executor-linux-v0.21.11.tar.gz
         if [ $? -eq 0 ]; then
             echo -e "${GREEN}下载成功。${RESET}"
         else
@@ -77,9 +77,9 @@ function execute_script() {
             return
         fi
 
-        # 解压文件到 /tmp 目录
+        # 解压文件到当前目录
         echo -e "${BLUE}正在解压文件...${RESET}"
-        tar -xzf /tmp/executor-linux-v0.21.11.tar.gz -C /tmp
+        tar -xzf executor-linux-v0.21.11.tar.gz
         if [ $? -eq 0 ]; then
             echo -e "${GREEN}解压成功。${RESET}"
         else
@@ -87,23 +87,20 @@ function execute_script() {
             return
         fi
 
-        # 显示解压后的目录内容
-        echo -e "${BLUE}解压后的目录内容：${RESET}"
-        ls -l /tmp
-
         # 检查解压后的目录并移动到 $EXECUTOR_DIR
-        if [ -d "/tmp/executor" ]; then
-            mv "/tmp/executor" "$EXECUTOR_DIR"
-        elif [ -d "/tmp/executor-linux-v0.21.11" ]; then
-            mv "/tmp/executor-linux-v0.21.11" "$EXECUTOR_DIR"
+        if [ -d "./executor" ]; then
+            mv "./executor" "$EXECUTOR_DIR"
+            echo -e "${GREEN}安装完成。${RESET}"
+        elif [ -d "./executor-linux-v0.21.11" ]; then
+            mv "./executor-linux-v0.21.11" "$EXECUTOR_DIR"
+            echo -e "${GREEN}安装完成。${RESET}"
         else
             echo -e "${RED}未找到解压后的目录，可能文件名不正确。${RESET}"
             return
         fi
 
         # 删除压缩文件
-        rm /tmp/executor-linux-v0.21.11.tar.gz
-        echo -e "${GREEN}安装完成。${RESET}"
+        rm -f executor-linux-v0.21.11.tar.gz
     fi
 
     # 设置环境变量
@@ -116,7 +113,7 @@ function execute_script() {
     export RPC_ENDPOINTS_OPSP='https://optimism-sepolia.blockpi.network/v1/rpc/public,https://api.zan.top/opt-sepolia'
 
     # 输入私钥
-    read -p "请输入私钥: " PRIVATE_KEY_LOCAL
+    read -p "请输入 PRIVATE_KEY_LOCAL 的值: " PRIVATE_KEY_LOCAL
     export PRIVATE_KEY_LOCAL="$PRIVATE_KEY_LOCAL"
 
     # 切换目录并执行
@@ -128,7 +125,6 @@ function execute_script() {
         echo -e "${GREEN}操作完成。${RESET}"
     else
         echo -e "${RED}未找到 bin 目录，检查解压后的文件结构。${RESET}"
-        return
     fi
 
     # 提示用户按任意键返回主菜单
