@@ -44,7 +44,7 @@ function main_menu() {
         clear
         echo -e "${BLUE}======= Node 管理工具 =======${RESET}"
         echo -e "${GREEN}版本：v1.0.0${RESET}"
-        echo -e "${GREEN}开发者：大赌社区${RESET}"
+        echo -e "${GREEN}开发者：@qklxsqf${RESET}"
         echo "================================"
         echo "1) 初始化节点"
         echo "2) 查看运行日志"
