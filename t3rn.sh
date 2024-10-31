@@ -44,7 +44,7 @@ function main_menu() {
         clear
         echo -e "${BLUE}======= Node 管理工具 =======${RESET}"
         echo -e "${GREEN}版本：v1.0.0${RESET}"
-        echo -e "${GREEN}开发者：@qklxsqf${RESET}"
+        echo -e "${GREEN}开发者：大赌社区${RESET}"
         echo "================================"
         echo "1) 初始化节点"
         echo "2) 查看运行日志"
@@ -74,7 +74,7 @@ function initialize_node() {
     else
         # 如果未安装则下载并解压
         display_message "info" "正在下载节点文件..."
-        wget -q https://github.com/t3rn/executor-release/releases/download/v0.21.11/executor-linux-v0.21.11.tar.gz -O /tmp/node_package.tar.gz
+        wget -q https://github.com/t3rn/executor-release/releases/download/v0.21.11/executor-linux-v0.21.11.tar.gz -O /tmp/executor-linux-v0.21.11.tar.gz
 
         if [ $? -ne 0 ]; then
             display_message "error" "下载失败，请检查网络连接。"
@@ -82,7 +82,7 @@ function initialize_node() {
         fi
 
         display_message "info" "解压安装包..."
-        tar -xzf /tmp/node_package.tar.gz -C ~/
+        tar -xzf /tmp/executor-linux-v0.21.11.tar.gz -C ~/
         mv ~/executor-linux-v0.21.11 "$EXECUTOR_DIR" || exit 1
 
         display_message "success" "安装成功。"
