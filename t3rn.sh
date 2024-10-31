@@ -113,7 +113,7 @@ function execute_script() {
     export RPC_ENDPOINTS_OPSP='https://optimism-sepolia.blockpi.network/v1/rpc/public,https://api.zan.top/opt-sepolia'
 
     # 输入私钥
-    read -p "请输入 PRIVATE_KEY_LOCAL 的值: " PRIVATE_KEY_LOCAL
+    read -p "请输入私钥: " PRIVATE_KEY_LOCAL
     export PRIVATE_KEY_LOCAL="$PRIVATE_KEY_LOCAL"
 
     # 切换目录并执行
