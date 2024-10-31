@@ -30,15 +30,14 @@ function main_menu() {
     while true; do
         clear
         echo -e "${BLUE}╔══════════════════════════════════════════════════════════════════════╗${RESET}"
-        echo -e "${BLUE}║${RESET}          ${GREEN} t3rn 节点管理工具${RESET}            ${BLUE}║${RESET}"
-        echo -e "${BLUE}║${RESET}                                                              ║${RESET}"
+        echo -e "${BLUE}║${RESET}                    ${GREEN}t3rn 节点管理工具${RESET}                     ${BLUE}║${RESET}"
         echo -e "${BLUE}╠══════════════════════════════════════════════════════════════════════╣${RESET}"
-        echo -e "${BLUE}║${RESET} ${INFO_ICON} ${YELLOW}请选择要执行的操作:${RESET}       ${BLUE}║${RESET}"
-        echo -e "${BLUE}║${RESET}  1) 部署节点                                           ${BLUE}║${RESET}"
-        echo -e "${BLUE}║${RESET}  2) 查看日志                                           ${BLUE}║${RESET}"
-        echo -e "${BLUE}║${RESET}  3) 删除节点                                           ${BLUE}║${RESET}"
-        echo -e "${BLUE}║${RESET}  4) 重启节点                                           ${BLUE}║${RESET}"
-        echo -e "${BLUE}║${RESET}  5) 退出                                               ${BLUE}║${RESET}"
+        echo -e "${BLUE}║${RESET} ${INFO_ICON} ${YELLOW}请选择要执行的操作:${RESET}                                           ${BLUE}║${RESET}"
+        echo -e "${BLUE}║${RESET}  1) 部署节点                                                       ${BLUE}║${RESET}"
+        echo -e "${BLUE}║${RESET}  2) 查看日志                                                       ${BLUE}║${RESET}"
+        echo -e "${BLUE}║${RESET}  3) 删除节点                                                       ${BLUE}║${RESET}"
+        echo -e "${BLUE}║${RESET}  4) 重启节点                                                       ${BLUE}║${RESET}"
+        echo -e "${BLUE}║${RESET}  5) 退出                                                           ${BLUE}║${RESET}"
         echo -e "${BLUE}╚══════════════════════════════════════════════════════════════════════╝${RESET}"
 
         read -p "$(echo -e "${YELLOW}请输入你的选择 [1-5]: ${RESET}")" choice
